@@ -13,9 +13,10 @@ x-common-env-vars:
 
 services:
   bot:
-    restart: "no"
+    restart: unless-stopped
     image: ballsdex
     build: .
+    env_file: .env
     environment:
       - *postgres-url
       - *django-settings
@@ -39,19 +40,19 @@ services:
     develop:
       watch:
         - path: ./ballsdex/packages
-          target: /opt/venv/lib/python3.14/site-packages/ballsdex/packages
+          target: /opt/venv/lib/python3.12/site-packages/ballsdex/packages
           initial_sync: true
           action: sync
           ignore:
             - "*.pyc"
         - path: ./ballsdex
-          target: /opt/venv/lib/python3.14/site-packages/ballsdex
+          target: /opt/venv/lib/python3.12/site-packages/ballsdex
           initial_sync: true
           action: sync+restart
           include:
             - "core/**/*.py"
         - path: ./admin_panel
-          target: /opt/venv/lib/python3.14/site-packages
+          target: /opt/venv/lib/python3.12/site-packages
           initial_sync: true
           action: sync+restart
           ignore:
@@ -86,7 +87,7 @@ services:
     develop:
       watch:
         - path: ./admin_panel
-          target: /opt/venv/lib/python3.14/site-packages
+          target: /opt/venv/lib/python3.12/site-packages
           initial_sync: true
           action: sync+restart
           include:
@@ -138,7 +139,7 @@ services:
     image: postgres:18.1-alpine3.22
     restart: always
     hostname: postgres
-    shm_size: 1g
+    shm_size: 2g
     environment:
       - *postgres-db
       - *postgres-user
