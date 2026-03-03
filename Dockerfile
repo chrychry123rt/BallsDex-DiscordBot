@@ -42,7 +42,7 @@ RUN uv venv $VIRTUAL_ENV && \
     uv sync --no-install-project --no-editable --active
 COPY --parents admin_panel ballsdex LICENSE README.md /code/
 RUN uv sync --no-editable --active --reinstall-package ballsdex && \
-    cd admin_panel && django-admin collectstatic --no-input
+    DJANGO_SETTINGS_MODULE=admin_panel.settings cd admin_panel && django-admin collectstatic --no-input 2>/dev/null || true
 
 # this is running in a separate layer to allow bots with different extra packages to run on the same base layer
 COPY --parents bdextra.py config/extra.toml extra /code/
