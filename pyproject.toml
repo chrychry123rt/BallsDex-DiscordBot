@@ -11,7 +11,7 @@ license-files = [
     "LICENSE"
 ]
 readme = "README.md"
-requires-python = ">=3.14"
+requires-python = ">=3.12"
 dependencies = [
     # asyncio
     "uvloop==0.22.1; sys_platform != 'win32'",
@@ -84,7 +84,7 @@ django-types = { git = "https://github.com/sbdchd/django-types.git", rev = "dadf
 [tool.ruff]
 line-length = 120
 indent-width = 4
-target-version = "py314"
+target-version = "py312"
 
 [tool.ruff.format]
 quote-style = "double"
@@ -105,7 +105,7 @@ split-on-trailing-comma = false
 
 [tool.pyright]
 extraPaths = ["./admin_panel"]
-pythonVersion = "3.13"
+pythonVersion = "3.12"
 reportIncompatibleMethodOverride = "warning"
 reportIncompatibleVariableOverride = "warning"
 
