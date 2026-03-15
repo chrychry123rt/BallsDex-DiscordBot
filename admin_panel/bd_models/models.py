@@ -428,7 +428,13 @@ class BallInstance(models.Model):
 
     @property
     def countryball(self) -> Ball:
-        return balls.get(self.ball_id, None) or self.ball
+        # Fixed: Use cached dictionary first to avoid Django async/sync context issues
+        # This prevents SynchronousOnlyOperation errors when called from async contexts
+        cached = balls.get(self.ball_id)
+        if cached:
+            return cached
+        # Fallback to database query if not cached
+        return self.ball
 
     @property
     def specialcard(self) -> Special | None:
