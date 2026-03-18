@@ -159,11 +159,14 @@ class Info(commands.Cog):
                 continue
             content = ""
             for app_command in cog.walk_app_commands():
-                translated = await self.bot.tree.translator.translate(  # type: ignore
-                    locale_str(app_command.description),
-                    interaction.locale,
-                    TranslationContext(TranslationContextLocation.other, None),
-                )
+                if self.bot.tree.translator:
+                    translated = await self.bot.tree.translator.translate(  # type: ignore
+                        locale_str(app_command.description),
+                        interaction.locale,
+                        TranslationContext(TranslationContextLocation.other, None),
+                    )
+                else:
+                    translated = app_command.description
                 content += f"{mention_app_command(app_command)}: {translated}\n"
             if not content:
                 continue
