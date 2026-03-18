@@ -212,8 +212,8 @@ class Settings(models.Model):
                 )[0]
 
     @property
-    @warnings.deprecated("This setting returns nothing, Webhook notifications must be used instead")
     def log_channel(self):
+        """Deprecated: This setting returns nothing, Webhook notifications must be used instead"""
         return None
 
     def clean(self) -> None:

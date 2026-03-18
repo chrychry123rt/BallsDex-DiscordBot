@@ -2,6 +2,7 @@ from typing import TYPE_CHECKING, Any, Generator
 
 import discord
 from discord.ui import ActionRow, Button, Select, Separator, TextDisplay
+from django.db.models import QuerySet
 
 from ballsdex.core.discord import Container
 from ballsdex.core.utils.menus import CountryballFormatter, Menu, ModelSource, TextFormatter, TextSource
@@ -11,8 +12,6 @@ from settings.models import settings
 from .errors import TradeError
 
 if TYPE_CHECKING:
-    from django.db.models import QuerySet
-
     from ballsdex.core.bot import BallsDexBot
 
     from .cog import Trade

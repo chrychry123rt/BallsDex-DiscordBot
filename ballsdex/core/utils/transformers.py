@@ -299,5 +299,5 @@ BallInstanceTransform = app_commands.Transform[BallInstance, BallInstanceTransfo
 SpecialTransform = app_commands.Transform[Special, SpecialTransformer]
 RegimeTransform = app_commands.Transform[Regime, RegimeTransformer]
 EconomyTransform = app_commands.Transform[Economy, EconomyTransformer]
-SpecialEnabledTransform = app_commands.Transform[Special, SpecialTransformer(hidden=False)]
-BallEnabledTransform = app_commands.Transform[Ball, BallTransformer(enabled=True)]
+SpecialEnabledTransform = SpecialTransform  # Alias for compatibility
+BallEnabledTransform = BallTransform  # Alias for compatibility

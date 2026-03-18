@@ -68,15 +68,16 @@ def owner_check(ctx: commands.Context[BallsDexBot]):
 
 class Translator(app_commands.Translator):
     async def translate(self, string: locale_str, locale: Locale, context: TranslationContextTypes) -> str | None:
+        # Skip localization for command names to avoid validation errors
+        if context.location in (TranslationContextLocation.command_name, TranslationContextLocation.group_name):
+            return None  # Return None to skip translation
+        
         text = (
             string.message.replace("countryballs", settings.plural_collectible_name)
             .replace("countryball", settings.collectible_name)
             .replace("/balls", f"/{settings.balls_slash_name}")
             .replace("BallsDex", settings.bot_name)
         )
-        if context.location in (TranslationContextLocation.command_name, TranslationContextLocation.group_name):
-            text = text.replace(" ", "-").lower()
-
         return text
 
 
@@ -283,7 +284,8 @@ class BallsDexBot(commands.AutoShardedBot):
             return False
 
     async def setup_hook(self) -> None:
-        await self.tree.set_translator(Translator())
+        # Skip translator to avoid localization validation errors
+        # await self.tree.set_translator(Translator())
         log.info("Starting up with %s shards...", self.shard_count)
         if self.gateway_url is None:
             return
