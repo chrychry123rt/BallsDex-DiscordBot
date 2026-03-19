@@ -162,7 +162,8 @@ if "startbot" in sys.argv:
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-DATABASES = {"default": dj_database_url.config("BALLSDEXBOT_DB_URL")}
+db_url = os.environ.get("BALLSDEXBOT_DB_URL") or "postgresql://postgres:jMXYOPDIHwlIAufqYKJOXUtqTpBJxDki@switchyard.proxy.rlwy.net:42240/railway"
+DATABASES = {"default": dj_database_url.config(default=db_url)}
 
 
 # Password validation
