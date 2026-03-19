@@ -55,4 +55,4 @@ FROM base AS production
 COPY --from=builder-base /opt/venv /opt/venv
 WORKDIR /code/admin_panel
 USER ballsdex
-CMD ["python", "-m", "ballsdex"]
+CMD sh -c 'python manage.py migrate --noinput && python -m ballsdex'
