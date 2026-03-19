@@ -55,3 +55,5 @@ FROM base AS production
 COPY --from=builder-base /opt/venv /opt/venv
 WORKDIR /code/admin_panel
 USER ballsdex
+RUN django-admin migrate --noinput || true
+CMD ["python", "-m", "ballsdex"]
