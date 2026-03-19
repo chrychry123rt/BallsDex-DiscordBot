@@ -13,29 +13,17 @@ class SettingsConfig(AppConfig):
     name = "settings"
 
     def ready(self):
-        # TODO: change this mess
+        # Skip loading settings during management commands and migrations
         if (
             "makemigrations" in sys.argv
             or "migrate" in sys.argv
             or "startapp" in sys.argv
             or "collectstatic" in sys.argv
+            or "shell" in sys.argv
         ):
             return
 
         from .models import load_settings
-        from django.db import connection
-
-        # Check if the settings table exists before trying to load settings
-        try:
-            with connection.cursor() as cursor:
-                cursor.execute("SELECT 1 FROM information_schema.tables WHERE table_name='settings_settings'")
-                table_exists = cursor.fetchone()
-        except Exception:
-            table_exists = False
-
-        if not table_exists:
-            log.warning("Settings table does not exist, skipping load_settings")
-            return
 
         try:
             # using uvicorn, the process will be in an async context and refuse to run sync db queries

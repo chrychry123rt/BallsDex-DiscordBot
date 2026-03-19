@@ -55,4 +55,4 @@ FROM base AS production
 COPY --from=builder-base /opt/venv /opt/venv
 WORKDIR /code/admin_panel
 USER ballsdex
-CMD sh -c 'django-admin migrate --noinput; python -m ballsdex'
+CMD ["python", "-m", "ballsdex"]
