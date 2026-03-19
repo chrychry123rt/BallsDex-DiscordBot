@@ -31,4 +31,7 @@ class SettingsConfig(AppConfig):
             task.add_done_callback(lambda t: log.info("Settings read successfully."))
         except RuntimeError:
             # if the bot is running in a sync context
-            load_settings()
+            try:
+                load_settings()
+            except Exception as e:
+                log.warning(f"Could not load settings during app initialization: {e}")
