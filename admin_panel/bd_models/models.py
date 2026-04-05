@@ -413,13 +413,17 @@ class BallInstance(models.Model):
 
     @property
     def attack(self) -> int:
-        bonus = int(self.countryball.attack * self.attack_bonus * 0.01)
-        return self.countryball.attack + bonus
+        # Use cached ball data to avoid sync DB queries in async contexts
+        ball = balls.get(self.ball_id) or self.ball
+        bonus = int(ball.attack * self.attack_bonus * 0.01)
+        return ball.attack + bonus
 
     @property
     def health(self) -> int:
-        bonus = int(self.countryball.health * self.health_bonus * 0.01)
-        return self.countryball.health + bonus
+        # Use cached ball data to avoid sync DB queries in async contexts
+        ball = balls.get(self.ball_id) or self.ball
+        bonus = int(ball.health * self.health_bonus * 0.01)
+        return ball.health + bonus
 
     @property
     def special_card(self) -> "ImageFieldFile | None":
