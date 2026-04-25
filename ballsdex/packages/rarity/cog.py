@@ -121,8 +121,8 @@ class Rarity(commands.Cog):
                 rarity_groups[ball.rarity] = []
             rarity_groups[ball.rarity].append(ball)
 
-        # Sort rarity values in descending order
-        sorted_rarities = sorted(rarity_groups.keys(), reverse=True)
+        # Sort rarity values in ascending order (smallest to highest)
+        sorted_rarities = sorted(rarity_groups.keys())
 
         # Create embed pages (max 5 rarity groups per page)
         pages: list[discord.Embed] = []
