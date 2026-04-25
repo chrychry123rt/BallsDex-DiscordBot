@@ -57,7 +57,6 @@ DEFAULT_PACKAGES = (
     ("guildconfig", "ballsdex.packages.guildconfig"),
     ("countryballs", "ballsdex.packages.countryballs"),
     ("info", "ballsdex.packages.info"),
-    ("rarity", "ballsdex.packages.rarity"),
     ("players", "ballsdex.packages.players"),
     ("trade", "ballsdex.packages.trade"),
 )
@@ -285,8 +284,8 @@ class BallsDexBot(commands.AutoShardedBot):
             return False
 
     async def setup_hook(self) -> None:
-        # Skip translator to avoid localization validation errors
-        # await self.tree.set_translator(Translator())
+        # Re-enable translator with safe localization handling
+        await self.tree.set_translator(Translator())
         log.info("Starting up with %s shards...", self.shard_count)
         if self.gateway_url is None:
             return
